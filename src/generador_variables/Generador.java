@@ -887,7 +887,7 @@ public class Generador extends javax.swing.JFrame {
         }
     }
     
-    private void generarDatosBinomial(){/////////////////////////////////////////////
+    private void generarDatosBinomial(){
         int n=0; double p=0;
         try{
             n = Integer.parseInt(txtParametro1.getText().toString().trim());
@@ -896,13 +896,28 @@ public class Generador extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        List<Double> probabilidad = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+        
         
         if(rbDensidad.isSelected()){
-            
+            List<Integer> x = new ArrayList<Integer>();
+            for(int i=0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = binomial.density(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
         } else if(rbAcumulada.isSelected()){
-            
+            List<Integer> x = new ArrayList<Integer>();
+            for(int i=0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = binomial.cumulative(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
         } else{
+            List<Double> probabilidad = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
             List<Double> x = probabilidad;
             List<Integer> y = binomial.inverse(probabilidad);
             XYSeries datos=new XYSeries("");
