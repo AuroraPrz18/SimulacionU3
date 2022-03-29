@@ -157,6 +157,9 @@ public class Generador extends javax.swing.JFrame {
         lblHiper.setText("• Hipergeométrica");
         lblHiper.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblHiper.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHiperMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cambiarColorHiper(evt);
             }
@@ -754,7 +757,7 @@ public class Generador extends javax.swing.JFrame {
                 generarDatosBinomial();
                 break;
             case 3:
-                //generarDatosHipergeo();
+                generarDatosHipergeo();
                 break;
             case 4:
                 
@@ -844,6 +847,20 @@ public class Generador extends javax.swing.JFrame {
         numDistribucion = 2;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblBinomialMouseClicked
+
+    private void lblHiperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHiperMouseClicked
+        lblParametro1.setText("Tamaño de la población");//mayor o igual a 1
+        lblParametro2.setText("Numero de éxitos");//entre 1 y poblacion inclusiva
+        lblParametro3.setText("Numero de pruebas");//entre 1 y poblacion inclusiva
+        lblParametro1.setVisible(true);
+        lblParametro2.setVisible(true);
+        lblParametro3.setVisible(true);
+        txtParametro1.setVisible(true);
+        txtParametro2.setVisible(true);
+        txtParametro3.setVisible(true);
+        numDistribucion = 3;
+        pnlGrafica.removeAll();
+    }//GEN-LAST:event_lblHiperMouseClicked
     
     private void generarDatosPoisson(){
         
@@ -895,8 +912,7 @@ public class Generador extends javax.swing.JFrame {
             binomial = new BinomialRandomVariables(p, n);
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        
+        }       
         
         if(rbDensidad.isSelected()){
             List<Integer> x = new ArrayList<Integer>();
@@ -922,6 +938,46 @@ public class Generador extends javax.swing.JFrame {
             List<Integer> y = binomial.inverse(probabilidad);
             XYSeries datos=new XYSeries("");
             for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        }
+    }
+    
+    private void generarDatosHipergeo(){
+        int tPoblacion=0, r=0, n=0;
+        try{
+            tPoblacion = Integer.parseInt(txtParametro1.getText().toString().trim());
+            n = Integer.parseInt(txtParametro3.getText().toString().trim());
+            r = Integer.parseInt(txtParametro2.getText().toString().trim());
+            hiperg = new HipergeometricaRandomVariables(tPoblacion, r, n);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+        }       
+        
+        if(rbDensidad.isSelected()){
+            List<Integer> x = new ArrayList<Integer>();
+            for(int i=0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = hiperg.density(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<tPoblacion; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else if(rbAcumulada.isSelected()){
+            List<Integer> x = new ArrayList<Integer>();
+            for(int i=0; i<=tPoblacion; i++)
+                x.add(i);
+            List<Double> y = hiperg.cumulative(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<tPoblacion; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else{
+            List<Double> probabilidad = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+            List<Double> x = probabilidad;
+            List<Integer> y = hiperg.inverse(probabilidad);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<tPoblacion; i++)
                 datos.add(x.get(i), y.get(i));
             graficar(datos);
         }
