@@ -257,6 +257,9 @@ public class Generador extends javax.swing.JFrame {
         lblGamma.setText("• Gamma");
         lblGamma.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblGamma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGammaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 agregarColorGamma(evt);
             }
@@ -778,7 +781,7 @@ public class Generador extends javax.swing.JFrame {
                 generarDatosBeta();
                 break;
             case 10:
-                //generarDatosGamma();
+                generarDatosGamma();
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "No se ha elegido ninguna distribucion", "Error", JOptionPane.ERROR_MESSAGE);
@@ -861,6 +864,17 @@ public class Generador extends javax.swing.JFrame {
         numDistribucion = 3;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblHiperMouseClicked
+
+    private void lblGammaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGammaMouseClicked
+        lblParametro1.setText("Escala");//mayor a 0
+        lblParametro2.setText("Forma");//mayor a 0
+        lblParametro1.setVisible(true);
+        lblParametro2.setVisible(true);
+        txtParametro1.setVisible(true);
+        txtParametro2.setVisible(true);
+        numDistribucion = 10;
+        pnlGrafica.removeAll();
+    }//GEN-LAST:event_lblGammaMouseClicked
     
     private void generarDatosPoisson(){
         
@@ -965,11 +979,11 @@ public class Generador extends javax.swing.JFrame {
             graficar(datos);
         } else if(rbAcumulada.isSelected()){
             List<Integer> x = new ArrayList<Integer>();
-            for(int i=0; i<=tPoblacion; i++)
+            for(int i=0; i<=cantPuntos; i++)
                 x.add(i);
             List<Double> y = hiperg.cumulative(x);
             XYSeries datos=new XYSeries("");
-            for(int i=0; i<tPoblacion; i++)
+            for(int i=0; i<cantPuntos; i++)
                 datos.add(x.get(i), y.get(i));
             graficar(datos);
         } else{
@@ -977,7 +991,7 @@ public class Generador extends javax.swing.JFrame {
             List<Double> x = probabilidad;
             List<Integer> y = hiperg.inverse(probabilidad);
             XYSeries datos=new XYSeries("");
-            for(int i=0; i<tPoblacion; i++)
+            for(int i=0; i<cantPuntos; i++)
                 datos.add(x.get(i), y.get(i));
             graficar(datos);
         }
@@ -1068,6 +1082,45 @@ public class Generador extends javax.swing.JFrame {
             graficar(datos);
         }
     } 
+   
+   private void generarDatosGamma(){
+        double escala, forma;
+        try{
+            escala = Double.parseDouble(txtParametro1.getText().trim());
+            forma = Double.parseDouble(txtParametro2.getText().trim());
+            gamma = new GammaRandomVariables(escala, forma);
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(rbDensidad.isSelected()){
+            List<Double> x = new ArrayList<Double>();
+            for(double i=0.0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = gamma.density(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else if(rbAcumulada.isSelected()){
+            List<Double> x = new ArrayList<Double>();
+            for(double i=0.0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = gamma.cumulative(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<=cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else{
+            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+            List<Double> y = gamma.inverse(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        }
+    }
     
     private void graficar(XYSeries datos){
         XYSeriesCollection dataset = new XYSeriesCollection();
