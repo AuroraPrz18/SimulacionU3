@@ -5,6 +5,7 @@
  */
 package generador_variables;
 
+import com.csvreader.CsvWriter;
 import distribucionesContinuas.*;
 import distribucionesDiscretas.*;
 import generadorNumeros.CongruencialMixto;
@@ -16,6 +17,8 @@ import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -386,6 +389,11 @@ public class Generador extends javax.swing.JFrame {
         btnExportar.setFont(new java.awt.Font("Cambria", 1, 12)); // NOI18N
         btnExportar.setText("Exportar CSV");
         btnExportar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
 
         btnGrafica.setFont(new java.awt.Font("Cambria", 1, 13)); // NOI18N
         btnGrafica.setText("Generar");
@@ -875,6 +883,83 @@ public class Generador extends javax.swing.JFrame {
         numDistribucion = 10;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblGammaMouseClicked
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+        List<Integer> yI = new ArrayList<Integer>();
+        List<Double> yD = new ArrayList<Double>();
+        String nombre = "";
+        int dist = 0;
+        switch(numDistribucion){
+            case 1:
+                yI = poisson.inverse(x);
+                nombre = "poisson.csv";
+                dist = 1;
+                break;
+            case 2:
+                yI = binomial.inverse(x);
+                nombre = "binomial.csv";
+                dist = 1;
+                break;
+            case 3:
+                yI = hiperg.inverse(x);
+                nombre = "hiperg.csv";
+                dist = 1;
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                //generarDatosUniforme();
+                break;
+            case 6:
+                
+                dist = 2;
+                break;
+            case 7:
+                yD = normal.inverse(x);
+                nombre = "normal.csv";
+                dist = 2;
+                break;
+            case 8:
+                
+                break;
+            case 9:
+                yD = beta.inverse(x);
+                nombre = "beta.csv";
+                dist = 2;
+                break;
+            case 10:
+                yD = gamma.inverse(x);
+                nombre = "gamma.csv";
+                dist = 2;
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "No se ha elegido ninguna distribucion", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
+        CsvWriter csvW = new CsvWriter(nombre);
+        if(dist == 1){
+            for(Integer val : yI){
+                try {
+                    String [] datos = {(val+"")};
+                    csvW.writeRecord(datos);
+                } catch (Exception ex) {
+                    Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }else{
+            for(Double val : yD){
+                try {
+                    String [] datos = {(val+"")};
+                    csvW.writeRecord(datos);
+                } catch (Exception ex) {
+                    Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }        
+        csvW.close();
+    }//GEN-LAST:event_btnExportarActionPerformed
     
     private void generarDatosPoisson(){
         
