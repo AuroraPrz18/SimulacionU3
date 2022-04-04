@@ -853,8 +853,10 @@ public class Generador extends javax.swing.JFrame {
         lblParametro2.setText("Probabilidad de éxito");
         lblParametro1.setVisible(true);
         lblParametro2.setVisible(true);
+        lblParametro3.setVisible(false);
         txtParametro1.setVisible(true);
         txtParametro2.setVisible(true);
+        txtParametro3.setVisible(false);
         numDistribucion = 2;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblBinomialMouseClicked
@@ -878,8 +880,10 @@ public class Generador extends javax.swing.JFrame {
         lblParametro2.setText("Forma");//mayor a 0
         lblParametro1.setVisible(true);
         lblParametro2.setVisible(true);
+        lblParametro3.setVisible(false);
         txtParametro1.setVisible(true);
         txtParametro2.setVisible(true);
+        txtParametro3.setVisible(false);
         numDistribucion = 10;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblGammaMouseClicked
@@ -1059,7 +1063,7 @@ public class Generador extends javax.swing.JFrame {
                 x.add(i);
             List<Double> y = hiperg.density(x);
             XYSeries datos=new XYSeries("");
-            for(int i=0; i<tPoblacion; i++)
+            for(int i=0; i<cantPuntos; i++)
                 datos.add(x.get(i), y.get(i));
             graficar(datos);
         } else if(rbAcumulada.isSelected()){
