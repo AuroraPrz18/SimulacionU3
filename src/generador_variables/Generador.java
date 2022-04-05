@@ -816,6 +816,10 @@ public class Generador extends javax.swing.JFrame {
         lblParametro1.setVisible(true);
         txtParametro1.setText("");
         txtParametro1.setVisible(true);
+        lblParametro2.setVisible(false);
+        txtParametro2.setVisible(false);
+        lblParametro3.setVisible(false);
+        txtParametro3.setVisible(false);
         numDistribucion = 1;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblPoissonMouseClicked
@@ -829,6 +833,8 @@ public class Generador extends javax.swing.JFrame {
         lblParametro2.setVisible(true);
         txtParametro2.setText("");
         txtParametro2.setVisible(true);
+        lblParametro3.setVisible(false);
+        txtParametro3.setVisible(false);
         numDistribucion = 9;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblBetaMouseClicked
@@ -842,6 +848,8 @@ public class Generador extends javax.swing.JFrame {
         lblParametro2.setVisible(true);
         txtParametro2.setText("");
         txtParametro2.setVisible(true);
+        lblParametro3.setVisible(false);
+        txtParametro3.setVisible(false);
         numDistribucion = 7;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblNormalMouseClicked
@@ -865,6 +873,8 @@ public class Generador extends javax.swing.JFrame {
     private void lblBinomialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBinomialMouseClicked
         lblParametro1.setText("Número de pruebas");
         lblParametro2.setText("Probabilidad de éxito");
+        txtParametro1.setText("");
+        txtParametro2.setText("");
         lblParametro1.setVisible(true);
         lblParametro2.setVisible(true);
         lblParametro3.setVisible(false);
@@ -879,6 +889,9 @@ public class Generador extends javax.swing.JFrame {
         lblParametro1.setText("Tamaño de la población");//mayor o igual a 1
         lblParametro2.setText("Numero de éxitos");//entre 1 y poblacion inclusiva
         lblParametro3.setText("Numero de pruebas");//entre 1 y poblacion inclusiva
+        txtParametro1.setText("");
+        txtParametro2.setText("");
+        txtParametro3.setText("");
         lblParametro1.setVisible(true);
         lblParametro2.setVisible(true);
         lblParametro3.setVisible(true);
@@ -892,6 +905,8 @@ public class Generador extends javax.swing.JFrame {
     private void lblGammaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGammaMouseClicked
         lblParametro1.setText("Escala");//mayor a 0
         lblParametro2.setText("Forma");//mayor a 0
+        txtParametro1.setText("");
+        txtParametro2.setText("");
         lblParametro1.setVisible(true);
         lblParametro2.setVisible(true);
         lblParametro3.setVisible(false);
@@ -986,33 +1001,46 @@ public class Generador extends javax.swing.JFrame {
 
     private void lblGeometricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGeometricaMouseClicked
         lblParametro1.setText("Probabilidad de Exito");
+        txtParametro1.setText("");
         lblParametro1.setVisible(true);
         txtParametro1.setVisible(true);
+        lblParametro2.setVisible(false);
+        txtParametro2.setVisible(false);
+        lblParametro3.setVisible(false);
+        txtParametro3.setVisible(false);
         numDistribucion=4;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblGeometricaMouseClicked
 
     private void lblExpoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExpoMouseClicked
         lblParametro1.setText("Lambda");
+        txtParametro1.setText("");
         lblParametro1.setVisible(true);
         txtParametro1.setVisible(true);
+        lblParametro2.setVisible(false);
+        txtParametro2.setVisible(false);
+        lblParametro3.setVisible(false);
+        txtParametro3.setVisible(false);
         numDistribucion=6;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblExpoMouseClicked
 
     private void lblLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogMouseClicked
         lblParametro1.setText("Media");
+        txtParametro1.setText("");
         lblParametro1.setVisible(true);
         txtParametro1.setVisible(true);
         lblParametro2.setText("Desviación Estándar");
+        txtParametro2.setText("");
         lblParametro2.setVisible(true);
         txtParametro2.setVisible(true);
+        lblParametro3.setVisible(false);
+        txtParametro3.setVisible(false);
         numDistribucion=8;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblLogMouseClicked
     
     private void generarDatosPoisson(){
-        
         double valLambda;
         try{
             valLambda = Double.parseDouble(txtParametro1.getText().trim());
@@ -1022,22 +1050,18 @@ public class Generador extends javax.swing.JFrame {
             return;
         }
         if(rbDensidad.isSelected()){
-            //Corregir
-            List<Double> aux = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
             List<Integer> x = new ArrayList<Integer>();
             for(int i=0; i<cantPuntos; i++)
-                x.add((int)(aux.get(i)*1000.0));
+                x.add(i);
             List<Double> y = poisson.density(x);
             XYSeries datos=new XYSeries("");
             for(int i=0; i<cantPuntos; i++)
                 datos.add(x.get(i), y.get(i));
             graficar(datos);
         } else if(rbAcumulada.isSelected()){
-            //Corregir
-            List<Double> aux = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
             List<Integer> x = new ArrayList<Integer>();
             for(int i=0; i<cantPuntos; i++)
-                x.add((int)(aux.get(i)*1000.0));
+                x.add(i);
             List<Double> y = poisson.cumulative(x);
             XYSeries datos=new XYSeries("");
             for(int i=0; i<cantPuntos; i++)
