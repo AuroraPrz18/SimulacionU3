@@ -88,7 +88,7 @@ public class Generador extends javax.swing.JFrame {
         lblBinomial = new javax.swing.JLabel();
         lblHiper = new javax.swing.JLabel();
         lblGeometrica = new javax.swing.JLabel();
-        lblPascal = new javax.swing.JLabel();
+        lblUniforme = new javax.swing.JLabel();
         lblExpo = new javax.swing.JLabel();
         lblNormal = new javax.swing.JLabel();
         lblLog = new javax.swing.JLabel();
@@ -192,11 +192,14 @@ public class Generador extends javax.swing.JFrame {
             }
         });
 
-        lblPascal.setFont(new java.awt.Font("Malgun Gothic", 1, 16)); // NOI18N
-        lblPascal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPascal.setText("• Uniforme");
-        lblPascal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        lblPascal.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblUniforme.setFont(new java.awt.Font("Malgun Gothic", 1, 16)); // NOI18N
+        lblUniforme.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUniforme.setText("• Uniforme");
+        lblUniforme.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblUniforme.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUniformeMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 agregarColorPascal(evt);
             }
@@ -298,7 +301,7 @@ public class Generador extends javax.swing.JFrame {
             .addComponent(lblBinomial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblHiper, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblGeometrica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblPascal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblUniforme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblExpo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblNormal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -320,7 +323,7 @@ public class Generador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblGeometrica)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPascal)
+                .addComponent(lblUniforme)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
@@ -666,21 +669,21 @@ public class Generador extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarColorExitGeo
 
     private void agregarColorPascal(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarColorPascal
-        fontSub=lblPascal.getFont();
+        fontSub=lblUniforme.getFont();
         font=lblGeometrica.getFont();
         
         Map attributes=fontSub.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         
-        lblPascal.setFont(fontSub.deriveFont(attributes));
-        lblPascal.setForeground(Color.blue); 
+        lblUniforme.setFont(fontSub.deriveFont(attributes));
+        lblUniforme.setForeground(Color.blue); 
     }//GEN-LAST:event_agregarColorPascal
 
     private void agregarColorExitPascal(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarColorExitPascal
-        Map attributes=lblPascal.getFont().getAttributes();
+        Map attributes=lblUniforme.getFont().getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
-        lblPascal.setFont(font.deriveFont(attributes));
-        lblPascal.setForeground(Color.black);
+        lblUniforme.setFont(font.deriveFont(attributes));
+        lblUniforme.setForeground(Color.black);
     }//GEN-LAST:event_agregarColorExitPascal
 
     private void agregarColorExpo(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarColorExpo
@@ -788,7 +791,7 @@ public class Generador extends javax.swing.JFrame {
                 generarDatosGeometrica();
                 break;
             case 5:
-                //generarDatosUniforme();
+                generarDatosUniforme();
                 break;
             case 6:
                 generarDatosExponencial();
@@ -946,7 +949,9 @@ public class Generador extends javax.swing.JFrame {
                     dist = 1;
                     break;
                 case 5:
-                    //generarDatosUniforme();
+                    yI = uniforme.inverse(x);
+                    nombre = "uniforme.csv";
+                    dist = 1;
                     break;
                 case 6:
                     yD = exponencial.inverse(x);
@@ -1043,41 +1048,45 @@ public class Generador extends javax.swing.JFrame {
         numDistribucion=8;
         pnlGrafica.removeAll();
     }//GEN-LAST:event_lblLogMouseClicked
+
+    private void lblUniformeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUniformeMouseClicked
+        numDistribucion=5;
+        pnlGrafica.removeAll();
+    }//GEN-LAST:event_lblUniformeMouseClicked
     
     private void generarDatosPoisson(){
         double valLambda;
         try{
             valLambda = Double.parseDouble(txtParametro1.getText().trim());
             poisson = new PoissonRandomVariable(valLambda);
+            if(rbDensidad.isSelected()){
+                List<Integer> x = new ArrayList<Integer>();
+                for(int i=0; i<cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = poisson.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                List<Integer> x = new ArrayList<Integer>();
+                for(int i=0; i<cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = poisson.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Integer> y = poisson.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if(rbDensidad.isSelected()){
-            List<Integer> x = new ArrayList<Integer>();
-            for(int i=0; i<cantPuntos; i++)
-                x.add(i);
-            List<Double> y = poisson.density(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else if(rbAcumulada.isSelected()){
-            List<Integer> x = new ArrayList<Integer>();
-            for(int i=0; i<cantPuntos; i++)
-                x.add(i);
-            List<Double> y = poisson.cumulative(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else{
-            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
-            List<Integer> y = poisson.inverse(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
         }
     }
     
@@ -1164,87 +1173,83 @@ public class Generador extends javax.swing.JFrame {
             valAlpha = Double.parseDouble(txtParametro1.getText().trim());
             valBeta = Double.parseDouble(txtParametro2.getText().trim());
             beta = new BetaRandomVariables(valAlpha, valBeta);
+            if(rbDensidad.isSelected()){
+                double aumento = 1.0/cantPuntos;
+                List<Double> x = new ArrayList<Double>();
+                for(double i=0.0; i<=1.0; i+=aumento)
+                    x.add(i);
+                List<Double> y = beta.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                double aumento = 1.0/cantPuntos;
+                List<Double> x = new ArrayList<Double>();
+                for(double i=0.0; i<=1.0; i+=aumento)
+                    x.add(i);
+                List<Double> y = beta.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Double> y = beta.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        if(rbDensidad.isSelected()){
-            double aumento = 1.0/cantPuntos;
-            List<Double> x = new ArrayList<Double>();
-            for(double i=0.0; i<=1.0; i+=aumento)
-                x.add(i);
-            List<Double> y = beta.density(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else if(rbAcumulada.isSelected()){
-            double aumento = 1.0/cantPuntos;
-            List<Double> x = new ArrayList<Double>();
-            for(double i=0.0; i<=1.0; i+=aumento)
-                x.add(i);
-            List<Double> y = beta.cumulative(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else{
-            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
-            List<Double> y = beta.inverse(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
         }
     }
     
-   private void generarDatosNormal(){
+    private void generarDatosNormal(){
        double valMedia, valDesv;
         try{
             valMedia = Double.parseDouble(txtParametro1.getText().trim());
             valDesv = Double.parseDouble(txtParametro2.getText().trim());
             normal = new NormalRandomVariable(valMedia, valDesv);
+            if(rbDensidad.isSelected()){
+                double limInf = valMedia - 4.0 * valDesv;
+                double limSup = valMedia + 4.0 * valDesv;
+                double aumento = (limSup-limInf)/cantPuntos;
+                List<Double> x = new ArrayList<Double>();
+                for(double i=limInf; i<=limSup; i+=aumento)
+                    x.add(i);
+                List<Double> y = normal.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                double limInf = valMedia - 4.0 * valDesv;
+                double limSup = valMedia + 4.0 * valDesv;
+                double aumento = (limSup-limInf)/cantPuntos;
+                List<Double> x = new ArrayList<Double>();
+                for(double i=limInf; i<=limSup; i+=aumento)
+                    x.add(i);
+                List<Double> y = normal.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Double> y = normal.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        if(rbDensidad.isSelected()){
-            double limInf = valMedia - 4.0 * valDesv;
-            double limSup = valMedia + 4.0 * valDesv;
-            double aumento = (limSup-limInf)/cantPuntos;
-            List<Double> x = new ArrayList<Double>();
-            for(double i=limInf; i<=limSup; i+=aumento)
-                x.add(i);
-            List<Double> y = normal.density(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else if(rbAcumulada.isSelected()){
-            double limInf = valMedia - 4.0 * valDesv;
-            double limSup = valMedia + 4.0 * valDesv;
-            double aumento = (limSup-limInf)/cantPuntos;
-            List<Double> x = new ArrayList<Double>();
-            for(double i=limInf; i<=limSup; i+=aumento)
-                x.add(i);
-            List<Double> y = normal.cumulative(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else{
-            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
-            List<Double> y = normal.inverse(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
         }
     } 
    
-   private void generarDatosGamma(){
+    private void generarDatosGamma(){
         double escala, forma;
         try{
             escala = Double.parseDouble(txtParametro1.getText().trim());
@@ -1280,130 +1285,155 @@ public class Generador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        
     }
    
-   private void generarDatosExponencial(){
-          
+    private void generarDatosExponencial(){
         double valLambda;
         try{
             valLambda = Double.parseDouble(txtParametro1.getText().trim());
             exponencial = new ExponencialRandomVariables(valLambda);
+            if(rbDensidad.isSelected()){
+                List<Double> x = new ArrayList<Double>();
+                for(double i=0.0; i<=cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = exponencial.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                List<Double> x = new ArrayList<Double>();
+                for(double i=0.0; i<=cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = exponencial.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Double> y = exponencial.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        if(rbDensidad.isSelected()){
-            List<Double> x = new ArrayList<Double>();
-            for(double i=0.0; i<=cantPuntos; i++)
-                x.add(i);
-            List<Double> y = exponencial.density(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-           
-            graficar(datos);
-        } else if(rbAcumulada.isSelected()){
-            List<Double> x = new ArrayList<Double>();
-            for(double i=0.0; i<=cantPuntos; i++)
-                x.add(i);
-            List<Double> y = exponencial.cumulative(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else{
-            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
-            List<Double> y = exponencial.inverse(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
         }
     }
        
-     private void generarDatosGeometrica(){
+    private void generarDatosGeometrica(){
         double valP;
         try{
             valP = Double.parseDouble(txtParametro1.getText().trim());
             geometrica = new GeometricaRandomVariables(valP);
+            if(rbDensidad.isSelected()){
+                List<Integer> x = new ArrayList<Integer>();
+                for(int i=0; i<=cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = geometrica.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                List<Integer> x = new ArrayList<Integer>();
+                for(int i=0; i<=cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = geometrica.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Integer> y = geometrica.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos. \n", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-       
-        if(rbDensidad.isSelected()){
-            List<Integer> x = new ArrayList<Integer>();
-            for(int i=0; i<=cantPuntos; i++)
-                x.add(i);
-            List<Double> y = geometrica.density(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else if(rbAcumulada.isSelected()){
-            List<Integer> x = new ArrayList<Integer>();
-            for(int i=0; i<=cantPuntos; i++)
-                x.add(i);
-            List<Double> y = geometrica.cumulative(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else{
-            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
-            List<Integer> y = geometrica.inverse(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
         }
     }
      
-      private void generarDatosLogNormal(){
-         double valMedia, valDesv;
+    private void generarDatosLogNormal(){
+        double valMedia, valDesv;
         try{
             valMedia = Double.parseDouble(txtParametro1.getText().trim());
             valDesv = Double.parseDouble(txtParametro2.getText().trim());
             logNormal = new LognormalRandomVariables(valMedia, valDesv);
+            if(rbDensidad.isSelected()){
+                double limInf = valMedia - 4.0 * valDesv;
+                double limSup = valMedia + 4.0 * valDesv;
+                double aumento = (limSup-limInf)/cantPuntos;
+                List<Double> x = new ArrayList<Double>();
+                for(double i=limInf; i<=limSup; i+=aumento)
+                    x.add(i);
+                List<Double> y = logNormal.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++) 
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                double limInf = valMedia - 4.0 * valDesv;
+                double limSup = valMedia + 4.0 * valDesv;
+                double aumento = (limSup-limInf)/cantPuntos;
+                List<Double> x = new ArrayList<Double>();
+                for(double i=limInf; i<=limSup; i+=aumento)
+                    x.add(i);
+                List<Double> y = logNormal.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Double> y = logNormal.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
         }
-        
-        if(rbDensidad.isSelected()){
-            double limInf = valMedia - 4.0 * valDesv;
-            double limSup = valMedia + 4.0 * valDesv;
-            double aumento = (limSup-limInf)/cantPuntos;
-            List<Double> x = new ArrayList<Double>();
-            for(double i=limInf; i<=limSup; i+=aumento)
-                x.add(i);
-            List<Double> y = logNormal.density(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++) 
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else if(rbAcumulada.isSelected()){
-            double limInf = valMedia - 4.0 * valDesv;
-            double limSup = valMedia + 4.0 * valDesv;
-            double aumento = (limSup-limInf)/cantPuntos;
-            List<Double> x = new ArrayList<Double>();
-            for(double i=limInf; i<=limSup; i+=aumento)
-                x.add(i);
-            List<Double> y = logNormal.cumulative(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
-        } else{
-            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
-            List<Double> y = logNormal.inverse(x);
-            XYSeries datos=new XYSeries("");
-            for(int i=0; i<cantPuntos; i++)
-                datos.add(x.get(i), y.get(i));
-            graficar(datos);
+    }
+      
+    private void generarDatosUniforme(){
+        try{
+            uniforme = new UniformeDiscretaRandomVariables(1, cantPuntos);
+            if(rbDensidad.isSelected()){
+                List<Integer> x = new ArrayList<Integer>();
+                for(int i=0; i<cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = uniforme.density(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else if(rbAcumulada.isSelected()){
+                List<Integer> x = new ArrayList<Integer>();
+                for(int i=0; i<cantPuntos; i++)
+                    x.add(i);
+                List<Double> y = uniforme.cumulative(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            } else{
+                List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+                List<Integer> y = uniforme.inverse(x);
+                XYSeries datos=new XYSeries("");
+                for(int i=0; i<cantPuntos; i++)
+                    datos.add(x.get(i), y.get(i));
+                graficar(datos);
+            }
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -1478,8 +1508,8 @@ public class Generador extends javax.swing.JFrame {
     private javax.swing.JLabel lblParametro1;
     private javax.swing.JLabel lblParametro2;
     private javax.swing.JLabel lblParametro3;
-    private javax.swing.JLabel lblPascal;
     private javax.swing.JLabel lblPoisson;
+    private javax.swing.JLabel lblUniforme;
     private javax.swing.JPanel pnlGrafica;
     private javax.swing.JRadioButton rb10000;
     private javax.swing.JRadioButton rb12000;

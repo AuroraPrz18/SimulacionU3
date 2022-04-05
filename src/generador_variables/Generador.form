@@ -86,7 +86,7 @@
               <Component id="lblBinomial" alignment="0" max="32767" attributes="0"/>
               <Component id="lblHiper" alignment="0" max="32767" attributes="0"/>
               <Component id="lblGeometrica" alignment="0" max="32767" attributes="0"/>
-              <Component id="lblPascal" alignment="0" max="32767" attributes="0"/>
+              <Component id="lblUniforme" alignment="0" max="32767" attributes="0"/>
               <Component id="lblExpo" alignment="0" max="32767" attributes="0"/>
               <Component id="lblNormal" alignment="0" max="32767" attributes="0"/>
               <Component id="lblLog" alignment="0" max="32767" attributes="0"/>
@@ -109,7 +109,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblGeometrica" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblPascal" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblUniforme" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -209,7 +209,7 @@
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarColorExitGeo"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblPascal">
+        <Component class="javax.swing.JLabel" name="lblUniforme">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Malgun Gothic" size="16" style="1"/>
@@ -221,6 +221,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblUniformeMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarColorPascal"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="agregarColorExitPascal"/>
           </Events>
