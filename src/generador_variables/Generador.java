@@ -24,6 +24,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -48,6 +50,9 @@ public class Generador extends javax.swing.JFrame {
     private HipergeometricaRandomVariables hiperg;
     private UniformeDiscretaRandomVariables uniforme;
     private GammaRandomVariables gamma;
+    private GeometricaRandomVariables geometrica;
+    private ExponencialRandomVariables exponencial;
+    private LognormalRandomVariables logNormal;
 
     
     /**
@@ -176,6 +181,9 @@ public class Generador extends javax.swing.JFrame {
         lblGeometrica.setText("• Geométrica");
         lblGeometrica.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblGeometrica.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGeometricaMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 cambiarColorGeo(evt);
             }
@@ -202,6 +210,9 @@ public class Generador extends javax.swing.JFrame {
         lblExpo.setText("• Exponencial");
         lblExpo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblExpo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblExpoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 agregarColorExpo(evt);
             }
@@ -231,6 +242,9 @@ public class Generador extends javax.swing.JFrame {
         lblLog.setText("• Lognormal");
         lblLog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 agregarColorLog(evt);
             }
@@ -771,19 +785,19 @@ public class Generador extends javax.swing.JFrame {
                 generarDatosHipergeo();
                 break;
             case 4:
-                
+                generarDatosGeometrica();
                 break;
             case 5:
                 //generarDatosUniforme();
                 break;
             case 6:
-                
+                generarDatosExponencial();
                 break;
             case 7:
                 generarDatosNormal();
                 break;
             case 8:
-                
+                 generarDatosLogNormal();
                 break;
             case 9:
                 generarDatosBeta();
@@ -911,13 +925,16 @@ public class Generador extends javax.swing.JFrame {
                 dist = 1;
                 break;
             case 4:
-                
+                yI = geometrica.inverse(x);
+                nombre = "geometrica.csv";
+                dist = 1;
                 break;
             case 5:
                 //generarDatosUniforme();
                 break;
             case 6:
-                
+                yD = exponencial.inverse(x);
+                nombre = "exponencial.csv";
                 dist = 2;
                 break;
             case 7:
@@ -926,7 +943,9 @@ public class Generador extends javax.swing.JFrame {
                 dist = 2;
                 break;
             case 8:
-                
+                yD = logNormal.inverse(x);
+                nombre = "logNormal.csv";
+                dist = 2;
                 break;
             case 9:
                 yD = beta.inverse(x);
@@ -964,6 +983,33 @@ public class Generador extends javax.swing.JFrame {
         }        
         csvW.close();
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void lblGeometricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGeometricaMouseClicked
+        lblParametro1.setText("Probabilidad de Exito");
+        lblParametro1.setVisible(true);
+        txtParametro1.setVisible(true);
+        numDistribucion=4;
+        pnlGrafica.removeAll();
+    }//GEN-LAST:event_lblGeometricaMouseClicked
+
+    private void lblExpoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExpoMouseClicked
+        lblParametro1.setText("Lambda");
+        lblParametro1.setVisible(true);
+        txtParametro1.setVisible(true);
+        numDistribucion=6;
+        pnlGrafica.removeAll();
+    }//GEN-LAST:event_lblExpoMouseClicked
+
+    private void lblLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogMouseClicked
+        lblParametro1.setText("Media");
+        lblParametro1.setVisible(true);
+        txtParametro1.setVisible(true);
+        lblParametro2.setText("Desviación Estándar");
+        lblParametro2.setVisible(true);
+        txtParametro2.setVisible(true);
+        numDistribucion=8;
+        pnlGrafica.removeAll();
+    }//GEN-LAST:event_lblLogMouseClicked
     
     private void generarDatosPoisson(){
         
@@ -1210,11 +1256,138 @@ public class Generador extends javax.swing.JFrame {
             graficar(datos);
         }
     }
+   
+   private void generarDatosExponencial(){
+          
+        double valLambda;
+        try{
+            valLambda = Double.parseDouble(txtParametro1.getText().trim());
+            exponencial = new ExponencialRandomVariables(valLambda);
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(rbDensidad.isSelected()){
+            List<Double> x = new ArrayList<Double>();
+            for(double i=0.0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = exponencial.density(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+           
+            graficar(datos);
+        } else if(rbAcumulada.isSelected()){
+            List<Double> x = new ArrayList<Double>();
+            for(double i=0.0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = exponencial.cumulative(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else{
+            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+            List<Double> y = exponencial.inverse(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        }
+    }
+       
+     private void generarDatosGeometrica(){
+        double valP;
+        try{
+            valP = Double.parseDouble(txtParametro1.getText().trim());
+            geometrica = new GeometricaRandomVariables(valP);
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Valores incorrectos. \n", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+       
+        if(rbDensidad.isSelected()){
+            List<Integer> x = new ArrayList<Integer>();
+            for(int i=0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = geometrica.density(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else if(rbAcumulada.isSelected()){
+            List<Integer> x = new ArrayList<Integer>();
+            for(int i=0; i<=cantPuntos; i++)
+                x.add(i);
+            List<Double> y = geometrica.cumulative(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else{
+            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+            List<Integer> y = geometrica.inverse(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        }
+    }
+     
+      private void generarDatosLogNormal(){
+         double valMedia, valDesv;
+        try{
+            valMedia = Double.parseDouble(txtParametro1.getText().trim());
+            valDesv = Double.parseDouble(txtParametro2.getText().trim());
+            logNormal = new LognormalRandomVariables(valMedia, valDesv);
+        } catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if(rbDensidad.isSelected()){
+            double limInf = valMedia - 4.0 * valDesv;
+            double limSup = valMedia + 4.0 * valDesv;
+            double aumento = (limSup-limInf)/cantPuntos;
+            List<Double> x = new ArrayList<Double>();
+            for(double i=limInf; i<=limSup; i+=aumento)
+                x.add(i);
+            List<Double> y = logNormal.density(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++) 
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else if(rbAcumulada.isSelected()){
+            double limInf = valMedia - 4.0 * valDesv;
+            double limSup = valMedia + 4.0 * valDesv;
+            double aumento = (limSup-limInf)/cantPuntos;
+            List<Double> x = new ArrayList<Double>();
+            for(double i=limInf; i<=limSup; i+=aumento)
+                x.add(i);
+            List<Double> y = logNormal.cumulative(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        } else{
+            List<Double> x = (new CongruencialMixto(3, 13, 11, 430000)).valoresReales(cantPuntos);
+            List<Double> y = logNormal.inverse(x);
+            XYSeries datos=new XYSeries("");
+            for(int i=0; i<cantPuntos; i++)
+                datos.add(x.get(i), y.get(i));
+            graficar(datos);
+        }
+    }
     
     private void graficar(XYSeries datos){
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(datos);
         JFreeChart grafica=ChartFactory.createXYLineChart("Grafico", "x", "y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        /*XYPlot plot = (XYPlot) grafica.getPlot();
+        XYLineAndShapeRenderer renderer= (XYLineAndShapeRenderer) plot.getRenderer();
+        plot.getRangeAxis().setRange(0.0, 1.6);*/
+
         //grafica.setBackgroundPaint(new Color(192, 192, 242));
         ChartPanel chartPanel = new ChartPanel(grafica);
         pnlGrafica.removeAll();
