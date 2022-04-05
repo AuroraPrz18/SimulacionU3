@@ -985,27 +985,33 @@ public class Generador extends javax.swing.JFrame {
             }catch(Exception e){
                 JOptionPane.showMessageDialog(this, "Asegúrese de haber seleccionado una distribución y que ya la haya graficado previamente", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        CsvWriter csvW = new CsvWriter(nombre);
-        if(dist == 1){
-            for(Integer val : yI){
-                try {
-                    String [] datos = {(val+"")};
-                    csvW.writeRecord(datos);
-                } catch (Exception ex) {
-                    Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+        try{
+          
+            CsvWriter csvW = new CsvWriter(nombre);
+            if(dist == 1){
+                for(Integer val : yI){
+                    try {
+                        String [] datos = {(val+"")};
+                        csvW.writeRecord(datos);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        }else{
-            for(Double val : yD){
-                try {
-                    String [] datos = {(val+"")};
-                    csvW.writeRecord(datos);
-                } catch (Exception ex) {
-                    Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+            }else{
+                for(Double val : yD){
+                    try {
+                        String [] datos = {(val+"")};
+                        csvW.writeRecord(datos);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Generador.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-        }        
-        csvW.close();
+            }        
+            csvW.close();
+            JOptionPane.showMessageDialog(this, "Los datos se han exportado exitosamente.");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Algo salió mal al exportar. Intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void lblGeometricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGeometricaMouseClicked
