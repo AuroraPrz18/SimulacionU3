@@ -12,13 +12,12 @@ import org.apache.commons.math3.distribution.GammaDistribution;
 public class GammaRandomVariables {
     
     private GammaDistribution distribution;
-    private double alpha, beta;
-    public GammaRandomVariables(double alpha, double beta){
-        this.alpha=alpha;
-        this.beta=beta;
-        this.distribution=new GammaDistribution(alpha, beta);
-    }
-    
+    private double shape, scale;
+    public GammaRandomVariables(double shape, double scale){
+        this.shape=shape;
+        this.scale=scale;
+        this.distribution=new GammaDistribution(shape, scale);
+    }    
     
     //Permite calcular una probabilidad dada la funciones de densidad/funcion acumulada/ inverso de la acumulada
     public List<Double> density(List<Double> Z){

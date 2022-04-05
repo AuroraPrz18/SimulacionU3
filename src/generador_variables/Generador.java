@@ -1177,7 +1177,7 @@ public class Generador extends javax.swing.JFrame {
         try{
             escala = Double.parseDouble(txtParametro1.getText().trim());
             forma = Double.parseDouble(txtParametro2.getText().trim());
-            gamma = new GammaRandomVariables(escala, forma);
+            gamma = new GammaRandomVariables(forma, escala);
         } catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1185,7 +1185,7 @@ public class Generador extends javax.swing.JFrame {
         
         if(rbDensidad.isSelected()){
             List<Double> x = new ArrayList<Double>();
-            for(double i=0.0; i<=cantPuntos; i++)
+            for(double i=0.0; i<cantPuntos; i++)
                 x.add(i);
             List<Double> y = gamma.density(x);
             XYSeries datos=new XYSeries("");
@@ -1194,11 +1194,11 @@ public class Generador extends javax.swing.JFrame {
             graficar(datos);
         } else if(rbAcumulada.isSelected()){
             List<Double> x = new ArrayList<Double>();
-            for(double i=0.0; i<=cantPuntos; i++)
+            for(double i=0.0; i<cantPuntos; i++)
                 x.add(i);
             List<Double> y = gamma.cumulative(x);
             XYSeries datos=new XYSeries("");
-            for(int i=0; i<=cantPuntos; i++)
+            for(int i=0; i<cantPuntos; i++)
                 datos.add(x.get(i), y.get(i));
             graficar(datos);
         } else{
