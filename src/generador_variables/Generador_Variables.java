@@ -18,8 +18,8 @@ public class Generador_Variables extends JFrame{
     public static void main(String[] args) {
     
        Generador obj=new Generador();
-    
-        obj.setVisible(true);
+       obj.setResizable(false);
+       obj.setVisible(true);
        
     }
     
