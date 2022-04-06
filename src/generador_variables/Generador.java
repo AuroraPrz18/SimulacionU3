@@ -68,6 +68,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 0;
         cantPuntos = 4200;
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }
 
     /**
@@ -149,6 +159,7 @@ public class Generador extends javax.swing.JFrame {
         lblPoisson.setText("• Poisson");
         lblPoisson.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblPoisson.setName(""); // NOI18N
+        lblPoisson.setOpaque(true);
         lblPoisson.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblPoissonMouseClicked(evt);
@@ -165,6 +176,7 @@ public class Generador extends javax.swing.JFrame {
         lblBinomial.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBinomial.setText("• Binomial");
         lblBinomial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblBinomial.setOpaque(true);
         lblBinomial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBinomialMouseClicked(evt);
@@ -181,6 +193,7 @@ public class Generador extends javax.swing.JFrame {
         lblHiper.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblHiper.setText("• Hipergeométrica");
         lblHiper.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblHiper.setOpaque(true);
         lblHiper.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblHiperMouseClicked(evt);
@@ -197,6 +210,7 @@ public class Generador extends javax.swing.JFrame {
         lblGeometrica.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGeometrica.setText("• Geométrica");
         lblGeometrica.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblGeometrica.setOpaque(true);
         lblGeometrica.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblGeometricaMouseClicked(evt);
@@ -213,6 +227,7 @@ public class Generador extends javax.swing.JFrame {
         lblUniforme.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblUniforme.setText("• Uniforme");
         lblUniforme.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblUniforme.setOpaque(true);
         lblUniforme.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUniformeMouseClicked(evt);
@@ -229,6 +244,7 @@ public class Generador extends javax.swing.JFrame {
         lblExpo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblExpo.setText("• Exponencial");
         lblExpo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblExpo.setOpaque(true);
         lblExpo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblExpoMouseClicked(evt);
@@ -245,6 +261,7 @@ public class Generador extends javax.swing.JFrame {
         lblNormal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNormal.setText("• Normal");
         lblNormal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblNormal.setOpaque(true);
         lblNormal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblNormalMouseClicked(evt);
@@ -261,6 +278,7 @@ public class Generador extends javax.swing.JFrame {
         lblLog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLog.setText("• Lognormal");
         lblLog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblLog.setOpaque(true);
         lblLog.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLogMouseClicked(evt);
@@ -277,6 +295,7 @@ public class Generador extends javax.swing.JFrame {
         lblBeta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBeta.setText("• Beta");
         lblBeta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblBeta.setOpaque(true);
         lblBeta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblBetaMouseClicked(evt);
@@ -293,6 +312,7 @@ public class Generador extends javax.swing.JFrame {
         lblGamma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGamma.setText("• Gamma");
         lblGamma.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblGamma.setOpaque(true);
         lblGamma.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblGammaMouseClicked(evt);
@@ -882,6 +902,19 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 1;
         pnlGrafica.removeAll();
+        
+        
+        lblPoisson.setBackground(Color.gray);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
+        
     }//GEN-LAST:event_lblPoissonMouseClicked
 
     private void lblBetaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBetaMouseClicked
@@ -897,6 +930,17 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 9;
         pnlGrafica.removeAll();
+        
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.gray);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblBetaMouseClicked
 
     private void lblNormalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNormalMouseClicked
@@ -912,6 +956,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 7;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.gray);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblNormalMouseClicked
 
     private void rb4200MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rb4200MouseClicked
@@ -943,6 +997,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 2;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.gray);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblBinomialMouseClicked
 
     private void lblHiperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHiperMouseClicked
@@ -960,6 +1024,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(true);
         numDistribucion = 3;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.gray);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblHiperMouseClicked
 
     private void lblGammaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGammaMouseClicked
@@ -975,6 +1049,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 10;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.gray);
     }//GEN-LAST:event_lblGammaMouseClicked
 
     private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
@@ -1082,6 +1166,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion=4;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.gray);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblGeometricaMouseClicked
 
     private void lblExpoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblExpoMouseClicked
@@ -1095,6 +1189,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion=6;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.gray);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblExpoMouseClicked
 
     private void lblLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogMouseClicked
@@ -1110,6 +1214,16 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion=8;
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.white);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.gray);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblLogMouseClicked
 
     private void lblUniformeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUniformeMouseClicked
@@ -1121,6 +1235,16 @@ public class Generador extends javax.swing.JFrame {
         lblParametro3.setVisible(false);
         txtParametro3.setVisible(false);
         pnlGrafica.removeAll();
+        lblPoisson.setBackground(Color.white);
+        lblBinomial.setBackground(Color.white);
+        lblHiper.setBackground(Color.white);
+        lblGeometrica.setBackground(Color.white);
+        lblUniforme.setBackground(Color.gray);
+        lblExpo.setBackground(Color.white);
+        lblNormal.setBackground(Color.white);
+        lblLog.setBackground(Color.white);
+        lblBeta.setBackground(Color.white);
+        lblGamma.setBackground(Color.white);
     }//GEN-LAST:event_lblUniformeMouseClicked
     
     private void generarDatosPoisson(){
