@@ -515,12 +515,12 @@ public class Generador extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(180, 250));
 
         lblParametro1.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
-        lblParametro1.setText("Parametro 1");
+        lblParametro1.setText("Párametro 1");
 
         txtParametro1.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
 
         lblParametro2.setFont(new java.awt.Font("Malgun Gothic", 1, 14)); // NOI18N
-        lblParametro2.setText("Parametro 2");
+        lblParametro2.setText("Párametro 2");
 
         txtParametro2.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
 
@@ -544,7 +544,7 @@ public class Generador extends javax.swing.JFrame {
                             .addComponent(lblParametro1)
                             .addComponent(lblParametro2)
                             .addComponent(lblParametro3))
-                        .addGap(0, 82, Short.MAX_VALUE)))
+                        .addGap(0, 86, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -577,7 +577,7 @@ public class Generador extends javax.swing.JFrame {
                     .addComponent(lblNormal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblExpo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblPoisson, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                     .addComponent(lblBinomial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblHiper, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblGeometrica, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -587,7 +587,7 @@ public class Generador extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(pnlGrafica, javax.swing.GroupLayout.PREFERRED_SIZE, 845, Short.MAX_VALUE)
+                        .addComponent(pnlGrafica, javax.swing.GroupLayout.PREFERRED_SIZE, 847, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -628,7 +628,7 @@ public class Generador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblGamma))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         lblPoisson.getAccessibleContext().setAccessibleName("lblPoisson");
@@ -886,7 +886,7 @@ public class Generador extends javax.swing.JFrame {
                 generarDatosGamma();
                 break;
             default:
-                JOptionPane.showMessageDialog(this, "No se ha elegido ninguna distribucion", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se ha elegido ninguna distribución", "Error", JOptionPane.ERROR_MESSAGE);
                 break;
         }
     }//GEN-LAST:event_btnGraficaActionPerformed
@@ -901,9 +901,7 @@ public class Generador extends javax.swing.JFrame {
         lblParametro3.setVisible(false);
         txtParametro3.setVisible(false);
         numDistribucion = 1;
-        pnlGrafica.removeAll();
-        
-        
+        pnlGrafica.removeAll();        
         lblPoisson.setBackground(Color.gray);
         lblBinomial.setBackground(Color.white);
         lblHiper.setBackground(Color.white);
@@ -930,7 +928,6 @@ public class Generador extends javax.swing.JFrame {
         txtParametro3.setVisible(false);
         numDistribucion = 9;
         pnlGrafica.removeAll();
-        
         lblPoisson.setBackground(Color.white);
         lblBinomial.setBackground(Color.white);
         lblHiper.setBackground(Color.white);
@@ -948,7 +945,7 @@ public class Generador extends javax.swing.JFrame {
         lblParametro1.setVisible(true);
         txtParametro1.setText("");
         txtParametro1.setVisible(true);
-        lblParametro2.setText("Desviacion estandar");
+        lblParametro2.setText("Desviación estándar");
         lblParametro2.setVisible(true);
         txtParametro2.setText("");
         txtParametro2.setVisible(true);
@@ -1011,8 +1008,8 @@ public class Generador extends javax.swing.JFrame {
 
     private void lblHiperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHiperMouseClicked
         lblParametro1.setText("Tamaño de la población");//mayor o igual a 1
-        lblParametro2.setText("Numero de éxitos");//entre 1 y poblacion inclusiva
-        lblParametro3.setText("Numero de pruebas");//entre 1 y poblacion inclusiva
+        lblParametro2.setText("Número de éxitos");//entre 1 y poblacion inclusiva
+        lblParametro3.setText("Número de pruebas");//entre 1 y poblacion inclusiva
         txtParametro1.setText("");
         txtParametro2.setText("");
         txtParametro3.setText("");
@@ -1149,14 +1146,14 @@ public class Generador extends javax.swing.JFrame {
                 }
             }        
             csvW.close();
-            JOptionPane.showMessageDialog(this, "Los datos se han exportado exitosamente.");
+            JOptionPane.showMessageDialog(this, "Los datos se han exportado exitosamente");
         }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "Algo salió mal al exportar. Intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Algo salió mal al exportar, intente de nuevo", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExportarActionPerformed
 
     private void lblGeometricaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGeometricaMouseClicked
-        lblParametro1.setText("Probabilidad de Exito");
+        lblParametro1.setText("Probabilidad de éxito");
         txtParametro1.setText("");
         lblParametro1.setVisible(true);
         txtParametro1.setVisible(true);
@@ -1206,7 +1203,7 @@ public class Generador extends javax.swing.JFrame {
         txtParametro1.setText("");
         lblParametro1.setVisible(true);
         txtParametro1.setVisible(true);
-        lblParametro2.setText("Desviación Estándar");
+        lblParametro2.setText("Desviación estándar");
         txtParametro2.setText("");
         lblParametro2.setVisible(true);
         txtParametro2.setVisible(true);
@@ -1549,7 +1546,7 @@ public class Generador extends javax.swing.JFrame {
                 graficar(datos);
             }
         } catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Valores incorrectos. \n", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Valores incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
      
@@ -1633,12 +1630,7 @@ public class Generador extends javax.swing.JFrame {
     private void graficar(XYSeries datos){
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(datos);
-        JFreeChart grafica=ChartFactory.createXYLineChart("Grafico", "x", "y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        /*XYPlot plot = (XYPlot) grafica.getPlot();
-        XYLineAndShapeRenderer renderer= (XYLineAndShapeRenderer) plot.getRenderer();
-        plot.getRangeAxis().setRange(0.0, 1.6);*/
-
-        //grafica.setBackgroundPaint(new Color(192, 192, 242));
+        JFreeChart grafica=ChartFactory.createXYLineChart("Gráfico", "x", "y", dataset, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartPanel = new ChartPanel(grafica);
         pnlGrafica.removeAll();
         pnlGrafica.setLayout(new java.awt.BorderLayout());
